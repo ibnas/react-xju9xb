@@ -14,18 +14,24 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden'
   },
   collapseContent: {
-    display: props => {
-      return props.open ? 'hidden' : 'block';
+    display: open => {
+      return open ? 'hidden' : 'block';
     }
   }
 }));
 
 export default function Database() {
-  const classes = useStyles();
   let [open, setOpen] = useState(true);
+  const classes = useStyles(open);
 
   return (
-    <Box className={classes.collapse}>
+    <Box
+      border={1}
+      borderColor="blue"
+      borderRadius="5px"
+      bgcolor="#e6f1ff"
+      className={classes.collapse}
+    >
       <Box
         className={classes.collapseContent}
         border={1}
@@ -34,8 +40,8 @@ export default function Database() {
         bgcolor="#f2f5f9"
       >
         <form className={classes.root} noValidate autoComplete="off">
-          <TextField id="standard-basic" label="server" variant="outlined" />
-          <TextField id="filled-basic" label="user" variant="outlined" />
+          <TextField id="server" label="server" variant="outlined" />
+          <TextField id="user" label="user" variant="outlined" />
           <TextField id="outlined-basic" label="password" variant="outlined" />
           <Button variant="contained" color="primary">
             Set
@@ -46,4 +52,3 @@ export default function Database() {
     </Box>
   );
 }
-
