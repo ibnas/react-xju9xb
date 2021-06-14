@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import Database from './database';
 
 export default function App() {
-  return (
-   <Database></Database>
-  );
+  return <Database />;
 }
+//
