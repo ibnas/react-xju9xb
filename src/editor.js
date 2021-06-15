@@ -16,10 +16,12 @@ const useStyles = makeStyles({
 
 let componentsPreview = {
   text: item => {
-    return <span>{typeof item.data == 'string' ? item.data : item.type}</span>;
+    return (
+      <input>{typeof item.data == 'string' ? item.data : item.type}</input>
+    );
   }
 };
-export default function Preview(props) {
+export default function Editor(props) {
   const classes = useStyles();
 
   let item = props.item == null ? { type: 'text', data: 'data' } : props.item;

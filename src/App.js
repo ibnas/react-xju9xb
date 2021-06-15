@@ -10,7 +10,7 @@ export default function App() {
   let [preview, setPreview] = useState(null);
 
   let onSelect = item => {
-    setPreview (item);
+    setPreview(item);
   };
   return (
     <>
@@ -18,6 +18,7 @@ export default function App() {
       {/* <DocsView></DocsView> */}
       <DocsList onSelect={onSelect} />
       <Preview item={preview} />
+      <Editor item={preview} />
     </>
   );
 }
