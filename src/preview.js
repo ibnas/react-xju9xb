@@ -1,10 +1,7 @@
 import React from 'react';
 import './style.css';
-import Button from '@material-ui/core/Button';
-import Database from './database';
-import DocsView from './docsView.js';
-import DocsList from './docsList.js';
 import { Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +14,7 @@ const useStyles = makeStyles({
   }
 });
 
-componentsPreview = {
+let componentsPreview = {
   text: item => {
     return <span>{typeof item.data == 'string' ? item.data : item.type}</span>;
   }
@@ -25,7 +22,7 @@ componentsPreview = {
 export default function Preview(props) {
   const classes = useStyles();
 
-  let item = props.item;
+  let item = props.item == null ? { type: 'text', data: 'data' } : props.item;
   let prev = componentsPreview[item.type]
     ? componentsPreview[item.type]
     : componentsPreview.text;
