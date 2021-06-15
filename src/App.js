@@ -5,6 +5,7 @@ import Database from './database';
 import DocsView from './docsView.js';
 import DocsList from './docsList.js';
 import Preview from './preview.js';
+import Editor from './preview.js';
 
 export default function App() {
   let [preview, setPreview] = useState(null);
