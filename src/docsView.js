@@ -6,7 +6,7 @@ import Database from './database';
 import data from './data';
 import styles from './styles.module.css'
 
-const useStyles = makeStyles(theme => ({...styles,
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     padding: theme.spacing(1)
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({...styles,
 }));
 
 export default function DocsView(props) {
-  const classes = useStyles();
+  const classes = { ...useStyles(), ...styles};
 
   let docs = props.docs ? props.docs : data.docs;
   return (
@@ -35,7 +35,7 @@ export default function DocsView(props) {
           {docs.map(doc => {
             return (
               <Grid item>
-                <Paper className={classes.paper}>{doc.data.name}</Paper>
+                <Paper className={styles.paper} class={`${styles.paper}`}>{doc.data.name}</Paper>
               </Grid>
             );
           })}
