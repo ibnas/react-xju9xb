@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
 import { Box } from '@material-ui/core';
+import data from './data';
 
 const useStyles = makeStyles({
   root: {
@@ -17,9 +18,27 @@ const useStyles = makeStyles({
   }
 });
 
-export default function DocsList() {
+export default function DocsList(props) {
   const classes = useStyles();
 
+  let docs = props.docs ? props.docs : data.docs;
+
+  let getFolderView = (folder, index) => {
+    return (
+      <TreeItem nodeId={index} label={folder.name}>
+        {folder.content.map(getDocView)}
+      </TreeItem>
+    );
+  };
+
+  let getDocView = (doc, index) => {
+    return <TreeItem nodeId={index} label={doc.name} />;
+  };
+  let view = docs.map((doc, index) => {
+    if (doc.type == 'folder') return getFolderView(doc, index);
+    else if (doc.type == 'file') return getDocView(doc, index);
+    return false;
+  });
   return (
     <Box
       border={1}
@@ -33,6 +52,7 @@ export default function DocsList() {
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpandIcon={<ChevronRightIcon />}
       >
+        {view}
         <TreeItem nodeId="1" label="Applications">
           <TreeItem nodeId="2" label="Calendar" />
           <TreeItem nodeId="3" label="Chrome" />

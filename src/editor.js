@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 let componentsPreview = {
   text: item => {
     return (
-      <input>{typeof item.data == 'string' ? item.data : item.type}</input>
+      <input value={typeof item.data == 'string' ? item.data : item.type} />
     );
   }
 };
@@ -28,7 +28,7 @@ export default function Editor(props) {
   let prev = componentsPreview[item.type]
     ? componentsPreview[item.type]
     : componentsPreview.text;
-  let Comp = componentsPreview[item.type](item);
+  let Comp = prev(item);
   return (
     <Box
       border={1}

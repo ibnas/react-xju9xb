@@ -3,6 +3,7 @@ import './style.css';
 import { Grid, Paper, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Database from './database';
+import data from './data';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,25 +20,7 @@ const useStyles = makeStyles(theme => ({
 export default function DocsView(props) {
   const classes = useStyles();
 
-  let docs = props.docs
-    ? props.docs
-    : [
-        { type: 'file', data: { name: 'file.f', content: 'content' } },
-        { type: 'file', data: { name: 'file.f', content: 'content' } },
-        { type: 'file', data: { name: 'file.f', content: 'content' } },
-        { type: 'file', data: { name: 'file.f', content: 'content' } },
-        { type: 'file', data: { name: 'file.f', content: 'content' } },
-        {
-          type: 'folder',
-          data: {
-            name: 'folder',
-            content: {
-              type: 'file',
-              data: { name: 'file.f', content: 'content' }
-            }
-          }
-        }
-      ];
+  let docs = props.docs ? props.docs : data.docs;
   return (
     <>
       <Box
