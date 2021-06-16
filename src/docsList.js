@@ -25,14 +25,14 @@ export default function DocsList(props) {
 
   let getFolderView = (folder, index) => {
     return (
-      <TreeItem nodeId={index} label={folder.name}>
-        {folder.content.map(getDocView)}
+      <TreeItem nodeId={index} label={folder.data.name}>
+        {folder.data.content.map(getDocView)}
       </TreeItem>
     );
   };
 
   let getDocView = (doc, index) => {
-    return <TreeItem nodeId={index} label={doc.name} />;
+    return <TreeItem nodeId={index} label={doc.data.name} />;
   };
   let view = docs.map((doc, index) => {
     if (doc.type == 'folder') return getFolderView(doc, index);
@@ -53,29 +53,7 @@ export default function DocsList(props) {
         defaultExpandIcon={<ChevronRightIcon />}
       >
         {view}
-        <TreeItem nodeId="1" label="Applications">
-          <TreeItem nodeId="2" label="Calendar" />
-          <TreeItem nodeId="3" label="Chrome" />
-          <TreeItem nodeId="4" label="Webstorm" />
-        </TreeItem>
-        <TreeItem nodeId="5" label="Documents">
-          <TreeItem nodeId="10" label="OSS" />
-          <TreeItem nodeId="6" label="Material-UI">
-            <TreeItem nodeId="7" label="src">
-              <TreeItem nodeId="8" label="index.js" />
-              <TreeItem nodeId="9" label="tree-view.js" />
-            </TreeItem>
-          </TreeItem>
-        </TreeItem>
-        <TreeItem nodeId="5" label="Documents">
-          <TreeItem nodeId="10" label="OSS" />
-          <TreeItem nodeId="6" label="Material-UI">
-            <TreeItem nodeId="7" label="src">
-              <TreeItem nodeId="8" label="index.js" />
-              <TreeItem nodeId="9" label="tree-view.js" />
-            </TreeItem>
-          </TreeItem>
-        </TreeItem>
+        
       </TreeView>
     </Box>
   );
