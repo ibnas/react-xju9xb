@@ -4,8 +4,9 @@ import { Grid, Paper, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Database from './database';
 import data from './data';
+import styles from './styles.module.css'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({...styles,
   root: {
     flexGrow: 1,
     padding: theme.spacing(1)
@@ -55,7 +56,7 @@ let Select = props => {
   };
 
   return (
-    <div onMouseEnter={setMouseIn(true)} onMouseLeave={setMouseIn(false)}>
+    <div onMouseEnter={()=>setMouseIn(true)} onMouseLeave={()=>setMouseIn(false)} style={} >
       {props.children}
     </div>
   );
