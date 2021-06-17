@@ -39,6 +39,7 @@ export default function DocsView(props) {
   const classes = { ...useStyles(theme) };
   // class={`${styles.paper}`} ...styles,
   let docs = props.docs ? props.docs : data.docs;
+  let selection = {};
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -53,7 +54,12 @@ export default function DocsView(props) {
             {docs.map((doc, index) => {
               return (
                 <Grid item>
-                  <Select>
+                  <Select
+                    select={t => {
+                      t ? (selection[index] = index) : delete selection[index];
+                      console.log(selection);
+                    }}
+                  >
                     <Paper
                       // classes={{
                       //   root: classes.paperRoot
@@ -79,6 +85,7 @@ export default function DocsView(props) {
 let Select = props => {
   let [mounseEnter, setMouseEnter] = useState(false);
   let [selected, setSelected] = useState(false);
+  let [multiSelect, setMultiSelect] = useState(false);
   let [mouseIn, setMouseIn] = useState(false);
 
   let style = () => {
@@ -100,9 +107,9 @@ let Select = props => {
   //     if (event.ctrlKey) {
   //       // Even though event.key is not 'Control' (e.g., 'a' is pressed),
   //       // event.ctrlKey may be true if Ctrl key is pressed at the same time.
-  //       alert(`Combination of ctrlKey + ${keyName}`);
+  //       console.log(`Combination of ctrlKey + ${keyName}`);
   //     } else {
-  //       alert(`Key pressed ${keyName}`);
+  //       console.log(`Key pressed ${keyName}`);
   //     }
   //   },
   //   false
@@ -116,18 +123,43 @@ let Select = props => {
   //     // As the user releases the Ctrl key, the key is no longer active,
   //     // so event.ctrlKey is false.
   //     if (keyName === 'Control') {
-  //       alert('Control key was released');
+  //       console.log('Control key was released');
   //     }
   //   },
   //   false
   // );
+
+  let keyDown = event => {
+    let n = event.key;
+    if (n === 'Control' || event.ctrlKey) {
+      setMultiSelect(true);
+    }
+  };
+  let keyUp = event => {
+    let n = event.key;
+    if (n === 'Control' || event.ctrlKey) {
+      setMultiSelect(false);
+    }
+  };
+
+  let select = () => {
+    setSelected(!selected);
+    if (props.select) props.select(selected ? true : false);
+  };
   return (
-    <ClickAwayListener onClickAway={() => setSelected(false)}>
+    <ClickAwayListener
+      onClickAway={() => {
+        if (!multiSelect) {
+          setSelected(false);
+        }
+      }}
+    >
       <div
         onMouseEnter={() => setMouseIn(true)}
         onMouseLeave={() => setMouseIn(false)}
-        onClick={() => setSelected(true)}
-        onKeyPress={e => console.log(e.key + ' key')}
+        onClick={select}
+        onKeyDown={keyDown}
+        onKeyUp={keyUp}
         style={style()}
       >
         {props.children}
