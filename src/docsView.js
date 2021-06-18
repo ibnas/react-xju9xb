@@ -59,8 +59,8 @@ export default function DocsView(props) {
                       t == -1
                         ? (selection = [])
                         : t == true
-                        ? (selection[index] = index)
-                        : delete selection[index];
+                          ? (selection[index] = index)
+                          : delete selection[index];
                       setSelection(selection);
                       console.log(selection);
                     }}
@@ -89,7 +89,7 @@ export default function DocsView(props) {
 ///
 
 let Select = props => {
-  let [mounseEnter, setMouseEnter] = useState(false);
+  let [focus, setFocus] = useState(false);
   let [selected, setSelected] = useState(props.selected ? true : false);
   let [multiSelect, setMultiSelect] = useState(props.selected);
   let [mouseIn, setMouseIn] = useState(false);
@@ -148,22 +148,23 @@ let Select = props => {
     }
   };
 
-  let select = () => {
+  let select = (evt) => {
     setSelected(!selected);
-    if (props.select) props.select(selected ? true : false);
+
+    if (props.select) props.select(selected ? false : true);
   };
   return (
     <ClickAwayListener
-      onClickAway={() => {
-        if (!multiSelect) {
+      onClickAway={(evt) => {
+        if (!evt.ctrlKey) {
           setSelected(false);
           if (props.select) props.select(-1);
         }
       }}
     >
       <div
-        onMouseEnter={() => setMouseIn(true)}
-        onMouseLeave={() => setMouseIn(false)}
+        onMouseEnter={() => { setMouseIn(true) }}
+        onMouseLeave={() => { setMouseIn(false) }}
         onClick={select}
         onKeyDown={keyDown}
         onKeyUp={keyUp}
