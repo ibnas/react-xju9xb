@@ -38,7 +38,8 @@ const useStyles = makeStyles(theme => ({
 export default function DocsView(props) {
   const classes = { ...useStyles(theme) };
   // class={`${styles.paper}`} ...styles,
-  let docs = props.docs ? props.docs : data.docs;
+  let docs = props.docs ? props.docs.data.content : data.docs;
+
   let [selection, setSelection] = useState({});
   return (
     <>
@@ -156,10 +157,11 @@ let Select = props => {
   return (
     <ClickAwayListener
       onClickAway={(evt) => {
-        if (!evt.ctrlKey) {
-          setSelected(false);
-          if (props.select) props.select(-1);
-        }
+        if (selected)
+          if (!evt.ctrlKey) {
+            setSelected(false);
+            if (props.select) props.select(-1);
+          }
       }}
     >
       <div

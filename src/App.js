@@ -16,6 +16,7 @@ export default function App() {
   };
   return (
     <>
+
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Database />
@@ -24,7 +25,7 @@ export default function App() {
           <DocsList onSelect={onSelect} />{' '}
         </Grid>
         <Grid item xs={10}>
-          <DocsView /> <Preview item={preview} /> <Editor item={preview} />{' '}
+          <DocsView docs={preview} /> <Preview docs={preview} /> <Editor item={preview} />{' '}
         </Grid>
         <Grid item xs={12} />
         <Grid item xs={12} />

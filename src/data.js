@@ -1,3 +1,5 @@
+import getDbData from "./db";
+
 let data = {
   name: 'db',
 
@@ -19,4 +21,5 @@ let data = {
   ]
 };
 
+data = getDbData();
 export default data;

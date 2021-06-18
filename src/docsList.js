@@ -25,23 +25,31 @@ export default function DocsList(props) {
 
   let docs = props.docs ? props.docs : data.docs;
 
-  let getFolderView = (folder, index) => {
+  let getContainerView = (container, index) => {
+    let index1 = 0;
+    let views = [];
+    for (const key in container.content) {
+      let element = container.content[key];
+      views.push(getView(c, index + ',' + index1));
+    }
     return (
-      <TreeItem nodeId={index} label={folder.data.name}>
-        {folder.data.content.map((c, index1) =>
-          getView(c, index + ',' + index1)
-        )}
+      <TreeItem nodeId={index} label={container.name} onClick={props.onSelect ? props.onSelect(container) : false}>
+        {views
+          // container.content.map((c, index1) =>
+          //   getView(c, index + ',' + index1)
+          // )
+        }
       </TreeItem>
     );
   };
 
-  let getDocView = (doc, index) => {
-    return <TreeItem nodeId={'' + index} label={doc.data.name} />;
+  let getContentView = (content, index) => {
+    return <TreeItem nodeId={'' + index} label={content.data.key} />;
   };
 
   let getView = (doc, index) => {
-    if (doc.type == 'folder') return getFolderView(doc, index);
-    else if (doc.type == 'file') return getDocView(doc, index);
+    if (doc.type == 'container') return getContainerView(doc, index);
+    else if (doc.type == 'item') return getContentView(doc, index);
     return false;
   };
 
