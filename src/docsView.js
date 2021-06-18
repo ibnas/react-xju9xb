@@ -39,7 +39,7 @@ export default function DocsView(props) {
   const classes = { ...useStyles(theme) };
   // class={`${styles.paper}`} ...styles,
   let docs = props.docs ? props.docs : data.docs;
-  let selection = {};
+  let [selection, setSelection] = useState({});
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -56,9 +56,15 @@ export default function DocsView(props) {
                 <Grid item>
                   <Select
                     select={t => {
-                      t ? (selection[index] = index) : delete selection[index];
+                      t == -1
+                        ? (selection = [])
+                        : t == true
+                        ? (selection[index] = index)
+                        : delete selection[index];
+                      setSelection(selection);
                       console.log(selection);
                     }}
+                    selected={selection[index]}
                   >
                     <Paper
                       // classes={{
@@ -84,8 +90,8 @@ export default function DocsView(props) {
 
 let Select = props => {
   let [mounseEnter, setMouseEnter] = useState(false);
-  let [selected, setSelected] = useState(false);
-  let [multiSelect, setMultiSelect] = useState(false);
+  let [selected, setSelected] = useState(props.selected ? true : false);
+  let [multiSelect, setMultiSelect] = useState(props.selected);
   let [mouseIn, setMouseIn] = useState(false);
 
   let style = () => {
@@ -151,6 +157,7 @@ let Select = props => {
       onClickAway={() => {
         if (!multiSelect) {
           setSelected(false);
+          if (props.select) props.select(-1);
         }
       }}
     >
